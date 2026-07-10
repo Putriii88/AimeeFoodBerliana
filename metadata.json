@@ -1,0 +1,6 @@
+{
+  "name": "Aimee Food POS & Webstore",
+  "description": "Point of Sale (POS) and Webstore for Aimee Food healthy salads and steamed packages with real-time sync, checkout, invoice tracking, and financial analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
