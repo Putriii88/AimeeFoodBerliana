@@ -812,27 +812,40 @@ export default function App() {
         <div className="flex items-center gap-2 font-medium">
           <span className="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
           <span>Aimee Food Realtime Database Link:</span>
-          <span className="font-mono bg-slate-900 text-slate-300 px-2 py-0.5 rounded border border-slate-800 flex items-center gap-1.5">
+          <button
+            onClick={() => {
+              setIsSyncing(true);
+              const updatedMenu = localStorage.getItem('aimee_food_menu');
+              const updatedOrders = localStorage.getItem('aimee_food_orders');
+              if (updatedMenu) setMenuItems(JSON.parse(updatedMenu));
+              if (updatedOrders) setOrders(JSON.parse(updatedOrders));
+              window.dispatchEvent(new CustomEvent(SYNC_EVENT_NAME));
+              setTimeout(() => {
+                setIsSyncing(false);
+              }, 600);
+            }}
+            title="Klik untuk menyegarkan database"
+            className="font-mono bg-slate-900 hover:bg-slate-800 active:scale-95 text-slate-300 hover:text-white px-2 py-0.5 rounded border border-slate-800 flex items-center gap-1.5 transition-all cursor-pointer"
+          >
             <RefreshCw className={`w-3 h-3 ${isSyncing ? 'animate-spin text-emerald-400' : ''}`} />
             Cloud Firestore Simulator Active
-          </span>
+          </button>
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-slate-400 font-semibold uppercase tracking-wider">Pilih Hak Akses:</span>
           <div className="inline-flex rounded-md p-0.5 bg-slate-900 border border-slate-800">
             <button
               onClick={() => handlePersonaSwitch('buyer')}
-              className={`px-3 py-1 rounded text-xs font-semibold transition-all ${
+              className={`px-3 py-1 rounded text-xs font-semibold transition-all cursor-pointer ${
                 persona === 'buyer'
                   ? 'bg-emerald-600 text-white shadow-sm'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              🛍️ Mode Pembeli (Webstore)
+              🛍️ Webstore
             </button>
             <button
               onClick={() => handlePersonaSwitch('merchant')}
-              className={`px-3 py-1 rounded text-xs font-semibold transition-all ${
+              className={`px-3 py-1 rounded text-xs font-semibold transition-all cursor-pointer ${
                 persona === 'merchant'
                   ? 'bg-emerald-600 text-white shadow-sm'
                   : 'text-slate-400 hover:text-white'
